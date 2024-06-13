@@ -102,3 +102,26 @@ void on_activate(GtkApplication *app, gpointer user_data) {
 
     gtk_widget_show_all(window);
 }
+
+void check_entry(GtkWidget *widget, gpointer data) {
+    const gchar *entry_text;
+    int num;
+    int index = GPOINTER_TO_INT(data);
+    int row = index / SIZE;
+    int col = index % SIZE;
+
+    entry_text = gtk_entry_get_text(GTK_ENTRY(widget));
+    if (g_strcmp0(entry_text, "") != 0) {
+        num = atoi(entry_text);
+        if (isValidMove(row, col, num)) {
+            userSudoku[row][col] = num;
+            if (isSudokuComplete()) {
+                show_completion_message();
+            }
+        } else {
+            gtk_entry_set_text(GTK_ENTRY(widget), "");
+        }
+    } else {
+        userSudoku[row][col] = 0;
+    }
+}
