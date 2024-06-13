@@ -69,3 +69,15 @@ int isValidMove(int row, int col, int num) {
 
     return 1; // Movimiento válido
 }
+
+// Verifica si el Sudoku está completo
+int isSudokuComplete() {
+    for (int i = 0; i < SIZE; i++) { // Se itera sobre las filas del Sudoku
+        for (int j = 0; j < SIZE; j++) { // Se itera sobre las columnas del Sudoku
+            if (userSudoku[i][j] == 0) { // Revisa si hay una celda vacía (con valor 0)
+                return 0; // Retorna el sudoku incompleto
+            }
+        }
+    }
+    return 1; // Retorna el sudoku completo
+}
