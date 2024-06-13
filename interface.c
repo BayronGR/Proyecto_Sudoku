@@ -70,3 +70,35 @@ void show_game_window(GtkWidget *widget, gpointer data) {
 
     gtk_widget_show_all(window);
 }
+
+
+void on_activate(GtkApplication *app, gpointer user_data) {
+    GtkWidget *window;
+    GtkWidget *grid;
+    GtkWidget *button_easy, *button_medium, *button_hard, *button_exit;
+
+    window = gtk_application_window_new(app);
+    gtk_window_set_title(GTK_WINDOW(window), "Sudoku");
+    gtk_container_set_border_width(GTK_CONTAINER(window), 10);
+
+    grid = gtk_grid_new();
+    gtk_container_add(GTK_CONTAINER(window), grid);
+
+    button_easy = gtk_button_new_with_label("Fácil");
+    g_signal_connect(button_easy, "clicked", G_CALLBACK(show_game_window), GINT_TO_POINTER(EASY)); // EASY representa la dificultad fácil
+    gtk_grid_attach(GTK_GRID(grid), button_easy, 0, 0, 1, 1);
+
+    button_medium = gtk_button_new_with_label("Medio");
+    g_signal_connect(button_medium, "clicked", G_CALLBACK(show_game_window), GINT_TO_POINTER(MEDIUM)); // MEDIUM representa la dificultad media
+    gtk_grid_attach(GTK_GRID(grid), button_medium, 0, 1, 1, 1);
+
+    button_hard = gtk_button_new_with_label("Difícil");
+    g_signal_connect(button_hard, "clicked", G_CALLBACK(show_game_window), GINT_TO_POINTER(HARD)); // HARD representa la dificultad difícil
+    gtk_grid_attach(GTK_GRID(grid), button_hard, 0, 2, 1, 1);
+
+    button_exit = gtk_button_new_with_label("Salir");
+    g_signal_connect(button_exit, "clicked", G_CALLBACK(gtk_window_close), window); // Cerrar la ventana en lugar de llamar a gtk_main_quit directamente
+    gtk_grid_attach(GTK_GRID(grid), button_exit, 0, 3, 1, 1);
+
+    gtk_widget_show_all(window);
+}
