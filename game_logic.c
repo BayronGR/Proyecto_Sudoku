@@ -22,3 +22,21 @@ void selectSudoku(int difficulty) {
             selectedSudoku = hardSudoku; // Selecciona el Sudoku difícil
             break;
     }
+
+    // Se inicializa el sudoku con los valores seleccionados 
+    for (int i = 0; i < SIZE; i++) { // Se itera sobre las filas del Sudoku
+        for (int j = 0; j < SIZE; j++) { // Se itera sobre las columnas del Sudoku
+            userSudoku[i][j] = selectedSudoku[i][j]; // Se copia el valor del Sudoku seleccionado a userSudoku
+        }
+    }
+}
+
+// Aca se imprime el Sudoku del usuario en la interfaz
+void printSudoku() {
+    for (int i = 0; i < SIZE; i++) { // Se itera sobre las filas del Sudoku
+        for (int j = 0; j < SIZE; j++) { // Se itera sobre las columnas del Sudoku
+            printf("%d ", userSudoku[i][j]); // Imprime el valor actual
+        }
+        printf("\n"); // Imprime una nueva línea al final de cada fila
+    }
+}
