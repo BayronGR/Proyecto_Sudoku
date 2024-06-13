@@ -53,3 +53,20 @@ void show_game_window(GtkWidget *widget, gpointer data) {
             gtk_grid_attach(GTK_GRID(grid), entry, j, i, 1, 1);
         }
     }
+
+    // Crear botones para reiniciar el juego y volver al menú principal
+    reset_button = gtk_button_new_with_label("Reiniciar Juego");
+    g_signal_connect(reset_button, "clicked", G_CALLBACK(reset_game), GINT_TO_POINTER(difficulty));
+    gtk_grid_attach(GTK_GRID(grid), reset_button, 0, SIZE, SIZE / 3, 1);
+
+    menu_button = gtk_button_new_with_label("Volver al Menú Principal");
+    g_signal_connect(menu_button, "clicked", G_CALLBACK(return_to_menu), window);
+    gtk_grid_attach(GTK_GRID(grid), menu_button, SIZE / 3, SIZE, SIZE / 3, 1);
+
+    // Crear botón de salida
+    exit_button = gtk_button_new_with_label("Salir");
+    g_signal_connect(exit_button, "clicked", G_CALLBACK(gtk_window_close), window); // Cerrar la ventana en lugar de llamar a gtk_main_quit directamente
+    gtk_grid_attach(GTK_GRID(grid), exit_button, 2 * (SIZE / 3), SIZE, SIZE / 3, 1);
+
+    gtk_widget_show_all(window);
+}
