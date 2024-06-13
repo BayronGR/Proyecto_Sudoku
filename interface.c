@@ -125,3 +125,22 @@ void check_entry(GtkWidget *widget, gpointer data) {
         userSudoku[row][col] = 0;
     }
 }
+
+void reset_game(GtkWidget *widget, gpointer data) {
+    int difficulty = GPOINTER_TO_INT(data);
+    selectSudoku(difficulty);
+
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (selectedSudoku[i][j] != 0) {
+                char buffer[2];
+                sprintf(buffer, "%d", selectedSudoku[i][j]);
+                gtk_entry_set_text(GTK_ENTRY(entries[i][j]), buffer);
+                gtk_editable_set_editable(GTK_EDITABLE(entries[i][j]), FALSE);
+            } else {
+                gtk_entry_set_text(GTK_ENTRY(entries[i][j]), "");
+                gtk_editable_set_editable(GTK_EDITABLE(entries[i][j]), TRUE);
+            }
+        }
+    }
+}
