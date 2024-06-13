@@ -26,3 +26,30 @@ void show_game_window(GtkWidget *widget, gpointer data) {
     GtkWidget *menu_button;
     GtkWidget *exit_button;
     char buffer[2];
+
+
+        window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(window), "Sudoku");
+    gtk_container_set_border_width(GTK_CONTAINER(window), 10);
+
+    grid = gtk_grid_new();
+    gtk_container_add(GTK_CONTAINER(window), grid);
+
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            entry = gtk_entry_new();
+            entries[i][j] = entry;
+
+            int sudoku_value = selectedSudoku[i][j];
+            if (sudoku_value != 0) {
+                sprintf(buffer, "%d", sudoku_value);
+                gtk_entry_set_text(GTK_ENTRY(entry), buffer);
+                gtk_editable_set_editable(GTK_EDITABLE(entry), FALSE);
+            } else {
+                g_signal_connect(entry, "changed", G_CALLBACK(check_entry), GINT_TO_POINTER(i * SIZE + j));
+            }
+
+            gtk_widget_set_size_request(entry, 30, 30); // Ajusta el tamaño según tus necesidades
+            gtk_grid_attach(GTK_GRID(grid), entry, j, i, 1, 1);
+        }
+    }
