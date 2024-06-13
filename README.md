@@ -1,1 +1,1 @@
-# BayronGR-Proyecto_Plataformas_Sudoku
+# Proyecto_Sudoku
