@@ -21,3 +21,9 @@ void show_main_menu() {
     selectSudoku(difficulty); // Se encarga de llamar a la función para seleccionar el sudoku según la dificultad
     printSudoku();
 }
+
+// Función principal del programa.
+int main(int argc, char **argv) {
+    show_main_menu(); // Se muestra el menú principal para seleccionar la dificultad
+    return run_interface(argc, argv); // Se ejecutar la interfaz gráfica y retorna su código de salida
+}
