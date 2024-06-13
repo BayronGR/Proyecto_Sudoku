@@ -40,3 +40,32 @@ void printSudoku() {
         printf("\n"); // Imprime una nueva línea al final de cada fila
     }
 }
+
+//Verifica si un movimiento es válido en el Sudoku.
+int isValidMove(int row, int col, int num) {
+    // Se comprueba la fila
+    for (int i = 0; i < SIZE; i++) { // Se itera sobre las columnas de la fila dada
+        if (userSudoku[row][i] == num) { // Revisa si el número ya está en la fila
+            return 0; // Movimiento inválido
+        }
+    }
+
+    // Se comprueba la columna
+    for (int i = 0; i < SIZE; i++) { // Se itera sobre las filas de la columna dada
+        if (userSudoku[i][col] == num) { // Revisa si el número ya está en la columna
+            return 0; // Movimiento inválido
+        }
+    }
+        // Se comprueba el bloque 3x3
+    int startRow = (row / 3) * 3; // Se calcula la fila inicial del bloque 3x3
+    int startCol = (col / 3) * 3; // Se calcula la columna inicial del bloque 3x3
+    for (int i = startRow; i < startRow + 3; i++) { // Se itera sobre las filas del bloque 3x3
+        for (int j = startCol; j < startCol + 3; j++) { // Se itera sobre las columnas del bloque 3x3
+            if (userSudoku[i][j] == num) { // Revisa si el número ya está en el bloque 3x3
+                return 0; // Movimiento inválido
+            }
+        }
+    }
+
+    return 1; // Movimiento válido
+}
