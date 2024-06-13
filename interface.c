@@ -144,3 +144,30 @@ void reset_game(GtkWidget *widget, gpointer data) {
         }
     }
 }
+
+void return_to_menu(GtkWidget *widget, gpointer data) {
+    GtkWidget *window = GTK_WIDGET(data);
+    gtk_widget_destroy(window);
+}
+
+void show_completion_message() {
+    GtkWidget *dialog;
+    GtkWidget *content_area;
+    GtkWidget *label;
+    GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
+
+    dialog = gtk_dialog_new_with_buttons("¡Felicidades!",
+                                         NULL,
+                                         flags,
+                                         "Aceptar",
+                                         GTK_RESPONSE_ACCEPT,
+                                         NULL);
+
+    content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+    label = gtk_label_new("¡Has completado el Sudoku!");
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    g_signal_connect_swapped(dialog, "response", G_CALLBACK(gtk_widget_destroy), dialog);
+
+    gtk_widget_show_all(dialog);
+}
