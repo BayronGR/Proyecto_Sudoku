@@ -52,6 +52,7 @@ void show_difficulty_menu() {
     // Se muestran todos los widgets de la ventana de dificultad
     gtk_widget_show_all(difficulty_window);
 }
+
 // Se crea una funcion para iniciar el juego con la dificultad seleccionada
 void start_game(GtkWidget *widget, gpointer data) {
     // Se copia el tablero seleccionado al tablero actual y al tablero resuelto
@@ -74,7 +75,7 @@ void start_game(GtkWidget *widget, gpointer data) {
     grid = gtk_grid_new();
     gtk_container_add(GTK_CONTAINER(window), grid);
 
-      // Se llena la cuadricula con entradas para cada celda del Sudoku
+    // Se llena la cuadricula con entradas para cada celda del Sudoku
     for (int i = 0; i < 9; ++i) {                        // Recorre las filas del tablero
         for (int j = 0; j < 9; ++j) {                    // Recorre las columna del tablero
             entry_grid[i][j] = gtk_entry_new();          // Se crea un nuevo widget de entrada
@@ -88,7 +89,8 @@ void start_game(GtkWidget *widget, gpointer data) {
             gtk_grid_attach(GTK_GRID(grid), entry_grid[i][j], j, i, 1, 1);  // Se anade el widget de entrada a la cuadricula 
         }
     }
-      // Se crean botones para verificar, volver al menu principal y salir 
+    
+    // Se crean botones para verificar, volver al menu principal y salir 
     GtkWidget *verify_button = gtk_button_new_with_label("Verificar");  // Se crea un boton para verificar el Sudoku 
     g_signal_connect(verify_button, "clicked", G_CALLBACK(verify_sudoku), NULL);  // Se conecta el boton con la funcion de verificacion 
 
@@ -132,7 +134,7 @@ void verify_sudoku(GtkWidget *widget, gpointer data) {
         return TRUE;   // Se retorna TRUE si no se encontraron numeros duplicados
     }
 
-        for (int i = 0; i < 9; ++i) {                          // Recorre las filas del tablero
+    for (int i = 0; i < 9; ++i) {                          // Recorre las filas del tablero
         for (int j = 0; j < 9; ++j) {                      // Recorre las columnas del tablero
             const char *text = gtk_entry_get_text(GTK_ENTRY(entry_grid[i][j])); // Se obtiene el texto del widget de entrada
             if (strlen(text) == 1 && text[0] >= '1' && text[0] <= '9') {  // Verifica que el texto tenga solo un caracter y que sea un numero del 1 al 9.
