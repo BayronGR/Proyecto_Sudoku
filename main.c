@@ -19,3 +19,37 @@ void verify_sudoku(GtkWidget *widget, gpointer data);  // Funcion para verificar
 void show_congratulations();                           // Funcion para mostrar el mensaje de felicitaciones
 void show_difficulty_menu();                           // Funcion para mostrar el menu de dificultad   
 
+// Se crea una funcion para mostrar el menu de dificultad 
+void show_difficulty_menu() {
+    // Se destruyen las ventanas anteriores si existen 
+    if (window) gtk_widget_destroy(window);
+    if (difficulty_window) gtk_widget_destroy(difficulty_window);
+    
+    // Se crea una nueva ventana para seleccionar la dificultad con titulo y tamano predeterminado
+    difficulty_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(difficulty_window), "Selecciona la dificultad");
+    gtk_window_set_default_size(GTK_WINDOW(difficulty_window), 300, 200);
+    
+    // Se crea un contenedor vertical y se anade a la ventana de dificultad
+    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5); // Se acomodan los widgets uno debajo del otro verticalmente con un espacio de 5 pixeles entre cada uno 
+    gtk_container_add(GTK_CONTAINER(difficulty_window), box);
+
+    // Se crea un boton para cada dificultad: facil, medio y dificil
+    GtkWidget *easy_button = gtk_button_new_with_label("Fácil");
+    GtkWidget *medium_button = gtk_button_new_with_label("Medio");
+    GtkWidget *hard_button = gtk_button_new_with_label("Difícil");
+
+    // Se conecta cada boton de dificultad con la funcion de inicio del juego, pasando al tablero correspondiente
+    g_signal_connect(easy_button, "clicked", G_CALLBACK(start_game), easy_board);
+    g_signal_connect(medium_button, "clicked", G_CALLBACK(start_game), medium_board);
+    g_signal_connect(hard_button, "clicked", G_CALLBACK(start_game), hard_board);
+
+    // Se anaden los botones al contenedor vertical 
+    gtk_box_pack_start(GTK_BOX(box), easy_button, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), medium_button, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), hard_button, TRUE, TRUE, 0);
+
+    // Se muestran todos los widgets de la ventana de dificultad
+    gtk_widget_show_all(difficulty_window);
+}
+
