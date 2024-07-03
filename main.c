@@ -131,3 +131,19 @@ void verify_sudoku(GtkWidget *widget, gpointer data) {
         }
         return TRUE;   // Se retorna TRUE si no se encontraron numeros duplicados
     }
+
+        for (int i = 0; i < 9; ++i) {                          // Recorre las filas del tablero
+        for (int j = 0; j < 9; ++j) {                      // Recorre las columnas del tablero
+            const char *text = gtk_entry_get_text(GTK_ENTRY(entry_grid[i][j])); // Se obtiene el texto del widget de entrada
+            if (strlen(text) == 1 && text[0] >= '1' && text[0] <= '9') {  // Verifica que el texto tenga solo un caracter y que sea un numero del 1 al 9.
+                user_board[i][j] = text[0] - '0';      // Convierte el texto a un numero
+            } else if (strlen(text) == 0) {            // Verifica si la celda está vacia
+                user_board[i][j] = 0;                  // Establece la celda vacia como 0
+                complete = FALSE;                      // Se marca el Sudoku como incompleto
+            } else {                                   // Si el texto no es válido
+                valid_input = FALSE;                   // Se marca la entrada como invalida
+                break;                                 // Se sale del bucle
+            }
+        }
+        if (!valid_input) break;       // Si se encontro una entrada invalida, sale del bucle
+    }
