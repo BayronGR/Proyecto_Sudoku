@@ -1,17 +1,36 @@
+# Nombre del ejecutable
+TARGET = sudoku
+
+# Archivos fuente
+SOURCES = main.c
+
+# Archivos objeto
+OBJECTS = main.o
+
+# Flags de compilación necesarios para compilar con GTK
+CFLAGS = -g `pkg-config --cflags gtk+-3.0`
+
+# Flags de enlace para obtener las bibliotecas necesarias para enlazar con GTK
+LDFLAGS = `pkg-config --libs gtk+-3.0`
+
+# Compilador a utilizar 
 CC = gcc
-CFLAGS = `pkg-config --cflags gtk+-3.0`
-LIBS = `pkg-config --libs gtk+-3.0`
 
-all: sudoku
+# Regla por defecto 
+all: $(TARGET)
 
-sudoku: interface.o game_logic.o
-	$(CC) -o sudoku interface.o game_logic.o $(LIBS)
+# Regla para crear el ejecutable
+$(TARGET): $(OBJECTS)
+	$(CC) -o $@ $^ $(LDFLAGS)
 
-interface.o: interface.c game_logic.h
-	$(CC) -c interface.c $(CFLAGS)
+# Regla para compilar main.c a main.o
+main.o: main.c sudoku_boards.h sudoku_solver.h
+	$(CC) $(CFLAGS) -c main.c -o main.o
 
-game_logic.o: game_logic.c game_logic.h
-	$(CC) -c game_logic.c $(CFLAGS)
-
+# Regla para limpiar archivos compilados
 clean:
-	rm -f *.o sudoku
+	rm -f $(TARGET) $(OBJECTS)
+
+# Regla para ejecutar el programa
+run: $(TARGET)
+	./$(TARGET)
