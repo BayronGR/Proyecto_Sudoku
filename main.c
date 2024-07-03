@@ -147,3 +147,47 @@ void verify_sudoku(GtkWidget *widget, gpointer data) {
         }
         if (!valid_input) break;       // Si se encontro una entrada invalida, sale del bucle
     }
+
+    // Si se encontro una entrada invalida
+    if (!valid_input) {               
+        GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "¡Solo se permiten números del 1 al 9 en las celdas!");                // Se crea un dialogo de error para entradas invalidas
+        gtk_dialog_run(GTK_DIALOG(dialog));   // Se muestra el dialogo de error
+        gtk_widget_destroy(dialog);           // Se destruye el dialogo de error
+        return;                               // Se termina la funcion
+    }
+
+    if (!is_valid_sudoku(user_board)) { // Verifica que no haya duplicados en filas y columnas
+        GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "¡Hay números duplicados en una fila o columna!");  // Se crea un dialogo de error para duplicados
+        gtk_dialog_run(GTK_DIALOG(dialog));     // Se muestra el dialogo de error
+        gtk_widget_destroy(dialog);             // Se destruye el dialogo de error
+        return;                                 // Se termina la funcion
+    }
+
+    if (complete && verify_sudoku_solution(user_board, solved_board)) {  // Verifica si el Sudoku esta completo y correcto
+        show_congratulations();                                          // Se muestra el mensaje de felicitaciones si es correcto
+    } else if (!complete) {                                             // Si el Sudoku no esta completo
+        GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "¡El Sudoku no está completo!"); // Se crea un dialogo de error para el Sudoku incompleto
+        gtk_dialog_run(GTK_DIALOG(dialog));                                     // Se muestra el dialogo de error
+        gtk_widget_destroy(dialog);                                             // Se destruye el dialogo de error
+    } else {                                                                    // Si el Sudoku esta completo pero incorrecto
+        GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "¡La solución no es correcta!"); // Se crea un dialogo de error para soluciones incorrectas
+        gtk_dialog_run(GTK_DIALOG(dialog));                                     // Se muestra el dialogo de error
+        gtk_widget_destroy(dialog);                                             // Se destruye el dialogo de error
+    }
+}
