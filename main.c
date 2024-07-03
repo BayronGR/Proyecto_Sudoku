@@ -77,3 +77,18 @@ void start_game(GtkWidget *widget, gpointer data) {
     // Se crea un nuevo contenedor de cuadricula y se anade a la ventana del juego
     grid = gtk_grid_new();
     gtk_container_add(GTK_CONTAINER(window), grid);
+
+      // Se llena la cuadricula con entradas para cada celda del Sudoku
+    for (int i = 0; i < 9; ++i) {                        // Recorre las filas del tablero
+        for (int j = 0; j < 9; ++j) {                    // Recorre las columna del tablero
+            entry_grid[i][j] = gtk_entry_new();          // Se crea un nuevo widget de entrada
+            gtk_entry_set_max_length(GTK_ENTRY(entry_grid[i][j]), 1);  // Se establece la longitud maxima de la entrada a un caracter
+            if (current_board[i][j] != 0) {              // Si la celda del tablero actual no esta vacia 
+                char str[2];                             // Se crea un arreglo de caracteres para el numero
+                sprintf(str, "%d", current_board[i][j]); // Se convierte el numero a una cadena 
+                gtk_entry_set_text(GTK_ENTRY(entry_grid[i][j]), str);  // Se establece el texto del widget de entrada 
+                gtk_editable_set_editable(GTK_EDITABLE(entry_grid[i][j]), FALSE);  // Hace que el widget de entrada no sea editable 
+            }
+            gtk_grid_attach(GTK_GRID(grid), entry_grid[i][j], j, i, 1, 1);  // Se anade el widget de entrada a la cuadricula 
+        }
+    }
