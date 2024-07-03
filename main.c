@@ -52,4 +52,7 @@ void show_difficulty_menu() {
     // Se muestran todos los widgets de la ventana de dificultad
     gtk_widget_show_all(difficulty_window);
 }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
