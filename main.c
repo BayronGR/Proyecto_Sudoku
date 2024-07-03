@@ -89,22 +89,5 @@ void start_game(GtkWidget *widget, gpointer data) {
             gtk_grid_attach(GTK_GRID(grid), entry_grid[i][j], j, i, 1, 1);  // Se anade el widget de entrada a la cuadricula 
         }
     }
-
-    // Se crean botones para verificar, volver al menu principal y salir 
-    GtkWidget *verify_button = gtk_button_new_with_label("Verificar");  // Se crea un boton para verificar el Sudoku 
-    g_signal_connect(verify_button, "clicked", G_CALLBACK(verify_sudoku), NULL);  // Se conecta el boton con la funcion de verificacion 
-
-    GtkWidget *main_menu_button = gtk_button_new_with_label("Menú Principal");  // Se crea un boton para volver al menu principal 
-    g_signal_connect(main_menu_button, "clicked", G_CALLBACK(show_difficulty_menu), NULL); // Se conecta el boton con la funcion del menu de dificultad 
-
-    GtkWidget *exit_button = gtk_button_new_with_label("Salir"); // Se crea un boton para salir del juego
-    g_signal_connect(exit_button, "clicked", G_CALLBACK(gtk_main_quit), NULL);  // Se conecta el boton con la funcion para salir de la aplicacion
-
-    // Se anade los botones a la cuadricula 
-    gtk_grid_attach(GTK_GRID(grid), verify_button, 0, 9, 3, 1);
-    gtk_grid_attach(GTK_GRID(grid), main_menu_button, 3, 9, 3, 1);
-    gtk_grid_attach(GTK_GRID(grid), exit_button, 6, 9, 3, 1);
-
-    // Se muestran todos los widgets en la ventana del juego 
-    gtk_widget_show_all(window);
+    
     }
