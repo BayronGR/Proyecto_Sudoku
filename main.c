@@ -89,7 +89,7 @@ void start_game(GtkWidget *widget, gpointer data) {
             gtk_grid_attach(GTK_GRID(grid), entry_grid[i][j], j, i, 1, 1);  // Se anade el widget de entrada a la cuadricula 
         }
     }
-    
+  
     // Se crean botones para verificar, volver al menu principal y salir 
     GtkWidget *verify_button = gtk_button_new_with_label("Verificar");  // Se crea un boton para verificar el Sudoku 
     g_signal_connect(verify_button, "clicked", G_CALLBACK(verify_sudoku), NULL);  // Se conecta el boton con la funcion de verificacion 
@@ -192,4 +192,31 @@ void verify_sudoku(GtkWidget *widget, gpointer data) {
         gtk_dialog_run(GTK_DIALOG(dialog));                                     // Se muestra el dialogo de error
         gtk_widget_destroy(dialog);                                             // Se destruye el dialogo de error
     }
+}
+
+// Se crea una funcion para mostrar el mensaje de felicitaciones
+void show_congratulations() {
+    // Se crea una nueva ventana para las felicitaciones, se establece el titulo y el tamano predeterminado
+    GtkWidget *congrats_window = gtk_window_new(GTK_WINDOW_TOPLEVEL); 
+    gtk_window_set_title(GTK_WINDOW(congrats_window), "Felicidades");
+    gtk_window_set_default_size(GTK_WINDOW(congrats_window), 300, 200);
+
+    // Se crea un contenedor vertical y se anade el contenedor a la ventana de felicitaciones 
+    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    gtk_container_add(GTK_CONTAINER(congrats_window), box);
+
+    GtkWidget *label = gtk_label_new("¡Felicidades! Has completado el Sudoku.");  // Se crea una etiqueta de felicitaciones 
+    GtkWidget *menu_button = gtk_button_new_with_label("Volver al Menú Principal");  // Se crea un boton para volver al menu principal 
+    GtkWidget *exit_button = gtk_button_new_with_label("Salir");  // Se crea un boton para salir del juego
+
+    g_signal_connect(menu_button, "clicked", G_CALLBACK(show_difficulty_menu), NULL);  // Se conecta el boton con la funcion del menu de dificultad 
+    g_signal_connect(exit_button, "clicked", G_CALLBACK(gtk_main_quit), NULL);  // Se conecta el boton con la funcion para salir de la aplicacion 
+
+    // Se anade la etiqueta y los botones al contenedor vertical 
+    gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), menu_button, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(box), exit_button, TRUE, TRUE, 0);
+
+    // Se muestran todos los widgets de la ventana de felicitaciones
+    gtk_widget_show_all(congrats_window);
 }
