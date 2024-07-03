@@ -89,7 +89,7 @@ void start_game(GtkWidget *widget, gpointer data) {
             gtk_grid_attach(GTK_GRID(grid), entry_grid[i][j], j, i, 1, 1);  // Se anade el widget de entrada a la cuadricula 
         }
     }
-
+  
     // Se crean botones para verificar, volver al menu principal y salir 
     GtkWidget *verify_button = gtk_button_new_with_label("Verificar");  // Se crea un boton para verificar el Sudoku 
     g_signal_connect(verify_button, "clicked", G_CALLBACK(verify_sudoku), NULL);  // Se conecta el boton con la funcion de verificacion 
