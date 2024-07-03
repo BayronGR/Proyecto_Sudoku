@@ -56,3 +56,24 @@ void show_difficulty_menu() {
 
 =======
 >>>>>>> Stashed changes
+// Se crea una funcion para iniciar el juego con la dificultad seleccionada
+void start_game(GtkWidget *widget, gpointer data) {
+    // Se copia el tablero seleccionado al tablero actual y al tablero resuelto
+    int (*selected_board)[9] = (int (*)[9])data;
+    memcpy(current_board, selected_board, sizeof(current_board));
+    memcpy(solved_board, selected_board, sizeof(solved_board));
+    
+    // Resuelve el Sudoku y almacena la solucion en solved_board
+    solve_sudoku(solved_board);
+
+    // Se destruye la ventana de dificultad si existe 
+    if (difficulty_window) gtk_widget_destroy(difficulty_window);
+
+    // Se crea una nueva ventana para el juego con titulo y un tamano predeterminado 
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(window), "Sudoku");
+    gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
+
+    // Se crea un nuevo contenedor de cuadricula y se anade a la ventana del juego
+    grid = gtk_grid_new();
+    gtk_container_add(GTK_CONTAINER(window), grid);
