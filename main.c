@@ -106,3 +106,28 @@ void start_game(GtkWidget *widget, gpointer data) {
     // Se muestran todos los widgets en la ventana del juego 
     gtk_widget_show_all(window);
 }
+
+// Se crea una funcion para verificar las respuestas del Sudoku
+void verify_sudoku(GtkWidget *widget, gpointer data) {
+    int user_board[9][9];               // Matriz para el tablero del usuario
+    gboolean valid_input = TRUE;        // Se verifica la validez de las entradas
+    gboolean complete = TRUE;           // Se verifica si el Sudoku esta completo
+
+    // Se crea una funcion para verificar que no haya numeros duplicados en una fila o columna.
+    gboolean is_valid_sudoku(int board[9][9]) {
+        for (int i = 0; i < 9; ++i) {               // Recorre las filas del tablero
+            gboolean row_seen[10] = { FALSE };      // Arreglo que verifica los duplicados en la fila 
+            gboolean col_seen[10] = { FALSE };      // Arreglo que verifica los duplicados en la columna 
+            for (int j = 0; j < 9; ++j) {           // Recorre las columnas del tablero
+                if (board[i][j] != 0) {             // Verifica si el valor en la fila no es 0
+                    if (row_seen[board[i][j]]) return FALSE;  // Si ya se vio este numero en la fila, retorna FALSE
+                    row_seen[board[i][j]] = TRUE;   // Se marca el numero como visto en la fila
+                }
+                if (board[j][i] != 0) {            // Verifica si el valor en la columna no es 0 
+                    if (col_seen[board[j][i]]) return FALSE;  // Si ya se vio este numero en la columna, retorna FALSE
+                    col_seen[board[j][i]] = TRUE;  // Se marca el numero como visto en la columna
+                }
+            }
+        }
+        return TRUE;   // Se retorna TRUE si no se encontraron numeros duplicados
+    }
