@@ -220,3 +220,15 @@ void show_congratulations() {
     // Se muestran todos los widgets de la ventana de felicitaciones
     gtk_widget_show_all(congrats_window);
 }
+
+int main(int argc, char *argv[]) {
+     
+    // Se inicializa la biblioteca GTK
+    gtk_init(&argc, &argv);
+
+    show_difficulty_menu();
+
+    gtk_main(); // Se entra en el bucle principal de GTK
+
+    return 0;
+}
