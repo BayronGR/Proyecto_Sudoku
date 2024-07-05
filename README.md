@@ -27,7 +27,7 @@ Descargar una máquina virtual Linux, para poder correrlo desde la terminal.
 
 1. Descargar los cuatro archivos de este repositorio y guardarlos todos en una misma carpeta.
 2. Abrir la terminal y dirigirse a esa carpeta.
-3. Descargar GTKWave, el cual es la interfaz del juego, mediante el comando:  sudo apt-get install libgtk-3-dev. (Solo se debe descargar una vez)
+3. Descargar GTKWave, el cual es la interfaz del juego, mediante el comando:  `sudo apt-get install libgtk-3-dev` . (Solo se debe descargar una vez)
 4. Ejecutar el programa con los comandos `make` y después `make run`. De esa manera se abrirá la interfaz para seleccionar la dificultad del Sudoku.
 5. Una vez seleccionada la dificultad, se abrirá una nueva ventana de interfaz, donde aparecerá el Sudoku listo para jugarlo con la dificultad elegida.
 6. Si se desea cambiar de dificultad, reiniciar o salir del juego, en la misma interfaz salen los botones correspondientes.
